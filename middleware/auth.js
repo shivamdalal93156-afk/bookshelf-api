@@ -23,21 +23,28 @@ async function jwttoken(req,res,next) {
 
 
 function validate(schema) {
+    
     return (req,res,next)=>{
+        try{
         const result = schema.safeParse(req.body);
 
-        if(!result.success){
-            const error = result.error.errors.map(err =>({
+        if(!result.success){try{
+            const error = result.error.issues.map(err =>({
                 field : err.path[0],
                 message : err.message
             }))
             return res.status(400).send(error)
-            }
+            }catch(err){
+                next(err);
+            }}
         
         req.body = result.data;
         next();
     }
+    catch(err){
+        next(err);
     }
+    }}
 
 
  module.exports = {validate , jwttoken};

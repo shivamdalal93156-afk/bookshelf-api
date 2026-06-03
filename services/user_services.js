@@ -41,27 +41,28 @@ async function login(email , password) {
     return token;
 }
 
-async function addbook(title , author , note ) {
-    const existing = await book.findOne({title : title});
+async function addbook(title , author , note , UserId ) {
+    const existing = await book.findOne({title : title , userId : UserId});
     if(existing){
-        const err = new Error("title with same book already exist");
+        const err = new Error("title with same book already exist in your self");
         err.status = 400;
         throw err;
     }
     const newbook = await book.create({
         title,
         author,
-        note
+        note,
+        userId : UserId,
     })
 }
 
-async function all_book() {
-    const allbook = await book.find({});
+async function all_book(UserId) {
+    const allbook = await book.find({userId : UserId});
     return allbook;
 }
 
-async function deletebook(id) {
-        const delete_book = await book.findByIdAndDelete(id);
+async function deletebook(id , UserId) {
+        const delete_book = await book.findOneAndDelete({_id : id , userId : UserId});
         if(!delete_book){
             const err = new Error("no book exist with given id");
             err.status = 404;
