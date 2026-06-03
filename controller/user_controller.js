@@ -42,7 +42,7 @@ async function login_user_cont(req,res,next) {
     const {email , password} = req.body;
     const token = await login(email ,password);
     return res.status(200).json({message : "user is login successfully",
-        token = token
+        token : token
     });
     }catch(err){
         next(err);
