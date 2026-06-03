@@ -7,14 +7,14 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/books",jwttoken , all_book );
+router.get("/books",jwttoken , all_book_cont );
 
-router.post("/login",validate(loginschema) , login );
+router.post("/login",validate(loginschema) , login_user_cont );
 
-router.post("/register" , validate(registerschema) , register_user);
+router.post("/register" , validate(registerschema) , register_user_cont);
 
-router.delete("/delete" , jwttoken , delete_book);
+router.delete("/delete" , jwttoken , delete_book_cont);
 
-router.post("/add_book" , validate(bookschema) , jwttoken , addbook);
+router.post("/add_book" , validate(bookschema) , jwttoken , addbook_cont);
 
 module.exports = router;
