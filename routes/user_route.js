@@ -13,7 +13,7 @@ router.post("/login",validate(loginschema) , login_user_cont );
 
 router.post("/register" , validate(registerschema) , register_user_cont);
 
-router.delete("/delete" , jwttoken , delete_book_cont);
+router.delete("/delete/:id" , jwttoken , delete_book_cont);
 
 router.post("/add_book" , validate(bookschema) , jwttoken , addbook_cont);
 
